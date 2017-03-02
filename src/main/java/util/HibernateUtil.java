@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import Cascading.entities.Car;
+import Cascading.entities.Person;
+import Embedable.entities.UserDetails;
 import OneToMany.Entities.Course1;
 import OneToMany.Entities.Student1;
 import in.gagan.entities.Course;
@@ -63,6 +66,13 @@ public class HibernateUtil {
 
 					.addAnnotatedClass(ManyToMany.entities.Course.class)
 					.addAnnotatedClass(ManyToMany.entities.Student.class)
+
+					.addAnnotatedClass(UserDetails.class)
+					.addAnnotatedClass(Embedable.entities.Address.class)
+					.addAnnotatedClass(Embedable.entities.UserDetailsSavingEmbeddableCollection.class)
+
+					.addAnnotatedClass(Person.class)
+					.addAnnotatedClass(Car.class)
 					.configure()
 					.buildSessionFactory();
 		} catch (Exception e) {

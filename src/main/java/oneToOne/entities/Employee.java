@@ -31,7 +31,7 @@ public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer Id;
+	private Long Id;
 	private String name, email;
 
 	@OneToOne

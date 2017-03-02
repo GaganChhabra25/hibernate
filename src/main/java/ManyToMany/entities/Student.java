@@ -33,7 +33,11 @@ public class Student {
 	private String studentName;
 
 	@ManyToMany()
-	@JoinTable(name = "student_course", joinColumns = {@JoinColumn(name = "student_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
+	@JoinTable(
+			name = "student_course",
+			joinColumns = {@JoinColumn(name = "student_id")},
+			inverseJoinColumns = {@JoinColumn(name = "course_id")}
+	)
 	Set<Course> courseSet = new HashSet<Course>();
 
 	public Student(String name) {

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +45,7 @@ public class Student1 {
 	private String fName;
 	private String lName;
 
-	@OneToMany(mappedBy = "student1")
+	@OneToMany(mappedBy = "student1", fetch = FetchType.EAGER)
 	private Set<Course1> courseList = new HashSet<>();
 
 	public Student1(String fName, String lName) {

@@ -26,6 +26,7 @@ public class Address {
 
 	@OneToOne(mappedBy = "address")
 	private Employee employee;
+
 	private String addressLine1, city, state, country;
 	private Integer pincode;
 
