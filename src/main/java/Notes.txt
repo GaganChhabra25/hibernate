@@ -118,6 +118,24 @@ hbm2ddl.auto-->update -Update existing schema
                 @JoinTable(name="USER_ADDRESS", joinColumns=@JoinColumn(name="USER_ID"))
                 private Collection<Address> lisOfAddresses = new ArrayList<Address>();
 
+
+10. @DiscriminatorColumn :
+
+        Target : Parent Classes
+        We can change name of descriminator column :
+
+    				@DiscriminatorColumn(name = "VEHICLE_TYPE", discriminatorType = DiscriminatorType.STRING)
+    				public class Vehicle {}
+
+
+11. @DiscriminatorValue :
+
+        Target : Child classes
+        We can change values of descriminator column.
+
+    				@DiscriminatorValue("Bike")
+    				public class TwoWheeler extends Vehicle {}
+
 =======================================================
 Retrieving Objects in Hibernate using session.get :
 ========================================================
@@ -216,4 +234,138 @@ Fetching Strategies:  there are two types of the fetching strategies in the hibe
         optimization in terms of time.I mean even associations are fetched right at the time of fetching parent object. So in this
         case we don’t make database call again and again . So this will be much faster.Agreed that this will bad if we are fetching
         too many objects in a session because we can get java heap error.
+
+
+
+=============================================================================================================
+INHERITENCE
+=============================================================================================================
+
+
+
+                                                                            class Vehicle {
+                                                                                @Id (GeneratedType.AUTO)
+                                                                                Integer Id;
+                                                                            }
+
+
+
+                                class TwoWheeler extends Vehicle {                              class FourWheeler extends Vehicle(
+                                    String steeringType;                                              String steeringType;
+                                }                                                                }
+
+
+
+1) SINGLE-TABLE (Not normalized, cannot apply contraints)
+----------------------------------------------------------
+
+    Step  ---->         mysql> select * from Vehicle;
+                        +--------------+-----------+-------------+--------------------+---------------------+
+                        | VEHICLE_TYPE | vehicleId | vehicleName | steeringTwoWheeler | steeringFourWheeler |
+                        +--------------+-----------+-------------+--------------------+---------------------+
+                        | Vehicle      |         1 | Truck       | NULL               | NULL                |
+                        | Bike         |         2 | Pulsar      | Handle             | NULL                |
+                        | Car          |         3 | i20         | NULL               | Steering            |
+                        +--------------+-----------+-------------+--------------------+---------------------+
+
+
+
+2) TABLE PER CLASS (Less normalized, can put contrainsts)
+-----------------------------------------------------------
+    NOTE :  Different ID's for every record.
+
+   Step 1  ---->        mysql> select * from VEHICLE_;
+                        +-----------+-------------+
+                        | vehicleId | vehicleName |
+                        +-----------+-------------+
+                        |         1 | Truck       |
+                        +-----------+-------------+
+
+
+   Step 2 ------>       mysql> select * from TwoWheeler;
+                        +-----------+-------------+--------------------+
+                        | vehicleId | vehicleName | steeringTwoWheeler |
+                        +-----------+-------------+--------------------+
+                        |         2 | Pulsar      | Handle             |
+                        +-----------+-------------+--------------------+
+
+    Step 3  ----->      mysql> select * from FourWheeler;
+                        +-----------+-------------+---------------------+
+                        | vehicleId | vehicleName | steeringFourWheeler |
+                        +-----------+-------------+---------------------+
+                        |         3 | i20         | Steering            |
+                        +-----------+-------------+---------------------+
+
+
+3) TABLE JOINED (Full normalized, can apply contraints)
+--------------------------------------------------------
+NOTE: ID's first generated at parent table, then same ID's shared accross all child tables.
+
+ Step 1  -->            mysql> select * from VEHICLE;
+                        +-----------+-------------+
+                        | vehicleId | vehicleName |
+                        +-----------+-------------+
+                        |         1 | Truck       |
+                        |         2 | Pulsar      |
+                        |         3 | i20         |
+                        +-----------+-------------+
+
+
+ Step 2   ->>           mysql> select * from TwoWheeler;
+                        +--------------------+-----------+
+                        | steeringTwoWheeler | vehicleId |
+                        +--------------------+-----------+
+                        | Handle             |         2 |
+                        +--------------------+-----------+
+
+
+ Step 3   ---->         mysql> select * from FourWheeler;
+                        +---------------------+-----------+
+                        | steeringFourWheeler | vehicleId |
+                        +---------------------+-----------+
+                        | Steering            |         3 |
+                        +---------------------+-----------+
+
+
+
+4) Differences
+---------------------
+
+    -> Single Table   :
+           1. Change in any subclass leads to change in structure of Table.
+           2. Retrieving data ->>>     All data is in one table. Using discriminator type, individual types can be selected.
+           3. Updating and Inserting    ->>>    Single INSERT or UPDATE
+
+    -> TABLE PER CLASS :
+
+            1.  Retrieving data ->>> Joins among table. For example fetching FourWheeler will require a join on FourWheeler and Vehicle table. If all user needs to be
+                fetched than it will put a join for all three tables.
+
+            2. Updating and Inserting ->>>> Multiple. For Vehicle type one insert on Vehicle table. For FourWheeler type one insert on Vehicle table and another on
+                                            FourWheeler table.
+
+
+    -> TABLE JOINED:
+
+            1. Change in base class leads to changes in all tables of derived class
+            2. Retrieving data ->>>  Separate Select or Union Select
+            3. Updating and Inserting ->>>> One insert or update for each subclass
+
+
+
+=========================================
+STATES OF OBJECT
+===========================================
+
+
+    TRANSIENT --------------------> PERSISTENCE --------------------------> DETACHED
+
+                                |               |
+                                |               |
+                                |<---session--->|
+
+
+   1.  When object in the session area then it is in Persistent State.
+   2.  When object before the session area then it is in Transient State.
+   3.  When object after the session area then it is in Detached State.
 

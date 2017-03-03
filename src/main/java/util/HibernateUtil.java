@@ -14,6 +14,9 @@ import OneToMany.Entities.Course1;
 import OneToMany.Entities.Student1;
 import in.gagan.entities.Course;
 import in.gagan.entities.Student;
+import inheritence.SingleTable.entities.FourWheeler;
+import inheritence.SingleTable.entities.TwoWheeler;
+import inheritence.SingleTable.entities.Vehicle;
 import oneToOne.entities.Address;
 import oneToOne.entities.Employee;
 
@@ -49,7 +52,7 @@ public class HibernateUtil {
 			properties.setProperty("hibernate.format_sql", "true");
 
 			sessionFactory = new Configuration()
-					//.addPackage("in.gagan.entities")
+					//.addPackage("in.gagan.SingleTable")
 					.addPackage("OneToMany.Entities")
 					.addProperties(properties)
 					.addAnnotatedClass(Course1.class)
@@ -73,6 +76,15 @@ public class HibernateUtil {
 
 					.addAnnotatedClass(Person.class)
 					.addAnnotatedClass(Car.class)
+
+					.addAnnotatedClass(Vehicle.class)
+					.addAnnotatedClass(TwoWheeler.class)
+					.addAnnotatedClass(FourWheeler.class)
+
+					.addAnnotatedClass(inheritence.TablePerClass.entities.Vehicle.class)
+					.addAnnotatedClass(inheritence.TablePerClass.entities.TwoWheeler.class)
+					.addAnnotatedClass(inheritence.TablePerClass.entities.FourWheeler.class)
+
 					.configure()
 					.buildSessionFactory();
 		} catch (Exception e) {

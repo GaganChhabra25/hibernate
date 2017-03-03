@@ -19,7 +19,7 @@ public class Helper {
 			student.getCourseList().addAll(courses);
 			session.saveOrUpdate(student);
 		} catch (Exception exception) {
-			System.out.println("Unable to Save entities into database");
+			System.out.println("Unable to Save SingleTable into database");
 		}
 	}
 }
