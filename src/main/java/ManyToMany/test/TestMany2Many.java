@@ -21,7 +21,7 @@ public class TestMany2Many {
 	@BeforeMethod
 	public void setup() {
 		// one unit of work per session
-		session = new HibernateUtil().initializeHibernateProperties().openSession();
+		session = HibernateUtil.getSessionFactory().openSession();
 	}
 
 	@Test

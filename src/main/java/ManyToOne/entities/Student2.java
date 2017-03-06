@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "student_m2o")
-public class Student {
+public class Student2 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,9 +26,9 @@ public class Student {
 
 	@ManyToOne
 	@JoinColumn(name = "course_id")
-	private Course course;
+	private Cours2 cours2;
 
-	public Student(String name) {
+	public Student2(String name) {
 		this.studentName = name;
 	}
 }

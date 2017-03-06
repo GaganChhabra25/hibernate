@@ -12,8 +12,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import in.gagan.DataHelper.Helper;
-import in.gagan.entities.Course;
-import in.gagan.entities.Student;
+import in.gagan.entities.Course3;
+import in.gagan.entities.Student3;
 import util.HibernateUtil;
 
 
@@ -23,14 +23,14 @@ public class PersistenceTest {
 	@BeforeMethod
 	public void setup() {
 		// one unit of work per session
-		session = new HibernateUtil().initializeHibernateProperties().openSession();
+		session = HibernateUtil.getSessionFactory().openSession();
 	}
 
 	@Test(description = "Insert java object(data) into database")
 	public void saveMessage() {
 		Transaction transaction = session.beginTransaction();
-		session.saveOrUpdate(new Course("gagan"));
-		session.saveOrUpdate(new Course("Ankit"));
+		session.saveOrUpdate(new Course3("gagan"));
+		session.saveOrUpdate(new Course3("Ankit"));
 		transaction.commit();
 		session.close();
 	}
@@ -38,19 +38,19 @@ public class PersistenceTest {
 	@Test(description = "Insert java object(data) into database")
 	public void saveCourseWithStudent() {
 		Transaction transaction = session.beginTransaction();
-		Student gagan = new Student("Gagan", "Chhabra");
+		Student3 gagan = new Student3("Gagan", "Chhabra");
 
-		Course course = new Course("Java");
-		Course course1 = new Course("Scala");
-		Course course2 = new Course("Spring");
+		Course3 course = new Course3("Java");
+		Course3 course21 = new Course3("Scala");
+		Course3 course22 = new Course3("Spring");
 
-		List<Course> courseList = new ArrayList<Course>();
-		courseList.add(course);
-		courseList.add(course1);
-		courseList.add(course2);
+		List<Course3> course3List = new ArrayList<Course3>();
+		course3List.add(course);
+		course3List.add(course21);
+		course3List.add(course22);
 		System.out.println("888888888888888888888888");
 
-		Helper.linkCourseWithStudent(session, gagan, courseList);
+		Helper.linkCourseWithStudent(session, gagan, course3List);
 		System.out.println("999999999999999999999999");
 
 		transaction.commit();
@@ -61,20 +61,20 @@ public class PersistenceTest {
 	@Test
 	public void manyToMany() {
 		Transaction transaction = session.beginTransaction();
-		Student gagan = new Student("Gagan", "Chhabra");
-		Student prashant = new Student("Prashant", "Gupta");
+		Student3 gagan = new Student3("Gagan", "Chhabra");
+		Student3 prashant = new Student3("Prashant", "Gupta");
 
-		Course course = new Course("Java");
-		Course course1 = new Course("Scala");
-		Course course2 = new Course("Spring");
+		Course3 course = new Course3("Java");
+		Course3 course21 = new Course3("Scala");
+		Course3 course22 = new Course3("Spring");
 
-		List<Course> courseList = new ArrayList<Course>();
-		courseList.add(course);
-		courseList.add(course1);
-		courseList.add(course2);
+		List<Course3> course3List = new ArrayList<Course3>();
+		course3List.add(course);
+		course3List.add(course21);
+		course3List.add(course22);
 
-		Helper.linkCourseWithStudent(session, gagan, courseList);
-		Helper.linkCourseWithStudent(session, prashant, courseList);
+		Helper.linkCourseWithStudent(session, gagan, course3List);
+		Helper.linkCourseWithStudent(session, prashant, course3List);
 		session.flush();
 		//transaction.commit();
 		session.close();
@@ -86,7 +86,7 @@ public class PersistenceTest {
 		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery("from Message");
 		System.out.println("query = " + query.toString());
-		List<Course> list = query.list();
+		List<Course3> list = query.list();
 		list.forEach(course -> System.out.println("Retrieved element = " + list));
 		assertThat(list.get(0).getCourseName()).isEqualTo("gagan");
 		assertThat(list.get(1).getCourseName()).isEqualTo("Ankit");
@@ -101,14 +101,14 @@ public class PersistenceTest {
 		Transaction transaction = session.beginTransaction();
 		Query query = session.createQuery("from Message");
 		System.out.println("query = " + query.toString());
-		List<Course> list = query.list();
+		List<Course3> list = query.list();
 		//delete object
 		session.delete(list.get(0));
 		transaction.commit();
 
 		/* ================Load object and delete====================*/
 		Transaction transaction1 = session.beginTransaction();
-		Object object = session.load(Course.class, 9L);
+		Object object = session.load(Course3.class, 9L);
 		if (object != null) {
 			session.delete(object);
 		} else {
@@ -130,7 +130,7 @@ public class PersistenceTest {
 
 		/*============= Delete transient object====================*/
 		Transaction transaction4 = session.beginTransaction();
-		Course message = new Course();
+		Course3 message = new Course3();
 		message.setId(15L);
 		session.delete(message);
 		transaction4.commit();

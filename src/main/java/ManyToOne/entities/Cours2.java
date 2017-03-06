@@ -24,17 +24,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "course_m2o")
-public class Course {
+public class Cours2 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 	private String courseName;
 
-	@OneToMany(mappedBy = "course")
-	private Set<Student> student = new HashSet<Student>();
+	@OneToMany(mappedBy = "cours2")
+	private Set<Student2> student2 = new HashSet<Student2>();
 
-	public Course(String courseName) {
+	public Cours2(String courseName) {
 		this.courseName = courseName;
 	}
 }

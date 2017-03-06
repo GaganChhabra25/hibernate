@@ -12,15 +12,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @DiscriminatorValue("Bike")
-public class TwoWheeler extends Vehicle {
+public class TwoWheeler1 extends Vehicle1 {
 
 	private String steeringTwoWheeler;
 
-	public TwoWheeler(String steeringTwoWheeler) {
+	public TwoWheeler1(String steeringTwoWheeler) {
 		this.steeringTwoWheeler = steeringTwoWheeler;
 	}
 
-	public TwoWheeler(String vehicleName, String steeringTwoWheeler) {
+	public TwoWheeler1(String vehicleName, String steeringTwoWheeler) {
 		super(vehicleName);
 		this.steeringTwoWheeler = steeringTwoWheeler;
 	}

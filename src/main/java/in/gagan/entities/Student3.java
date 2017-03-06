@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -18,28 +17,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "courses")
-public class Course {
+@Table(name = "students")
+public class Student3 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String courseName;
+	private String fName;
+	private String lName;
 
 	@ManyToMany
-	@JoinTable(name = "course_student")
-	Set<Student> students = new HashSet<>();
+	private Set<Course3> course3List = new HashSet<>();
 
-	public Course(String courseName) {
-		this.courseName = courseName;
+	public Student3(String fName, String lName) {
+		this.fName = fName;
+		this.lName = lName;
 	}
-
-	public Set<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(Set<Student> students) {
-		this.students = students;
-	}
-
 }

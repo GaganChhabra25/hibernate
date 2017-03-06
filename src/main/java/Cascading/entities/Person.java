@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
@@ -13,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Getter
@@ -26,8 +26,9 @@ public class Person {
 	private Long Id;
 	private String name;
 
-	@OneToMany(mappedBy = "person")
-	@Cascade(CascadeType.DELETE)
+	/*	@OneToMany(mappedBy = "person", cascade = {CascadeType.ALL, CascadeType.REMOVE}, fetch = FetchType.EAGER)*/
+	@OneToMany(fetch = FetchType.EAGER)
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	private List<Car> carList = new ArrayList<Car>();
 
 	public Person(String name) {

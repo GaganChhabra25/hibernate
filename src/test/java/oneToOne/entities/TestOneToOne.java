@@ -13,12 +13,12 @@ public class TestOneToOne {
 	@BeforeMethod
 	public void setup() {
 		// one unit of work per session
-//		session = new HibernateUtil().initializeHibernateProperties().openSession();
+//		session = HibernateUtil.getSessionFactory().openSession();
 	}
 
 	@Test
 	public void testOneToOne() {
-		Session session = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 
 		Employee employee = new Employee("Gagan", "gagan@gmail.com");
 		Address address = new Address(employee, "Rose park", "Jalandhar", "Punjab", "India", 144008);
@@ -32,7 +32,7 @@ public class TestOneToOne {
 
 	@Test
 	public void testEagerFetchForEmployeeFromAddressEntity() {
-		Session firstInning = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session firstInning = HibernateUtil.getSessionFactory().openSession();
 
 		Employee employee = new Employee("Gagan", "gagan@gmail.com");
 		Address address = new Address(employee, "Rose park", "Jalandhar", "Punjab", "India", 144008);
@@ -43,12 +43,12 @@ public class TestOneToOne {
 		transaction.commit();
 		firstInning.close();
 
-		Session secondInning = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session secondInning = HibernateUtil.getSessionFactory().openSession();
 		employee = null;
 		address = null;
 
 //		employee = session.get(Employee.class, employeeId);
-		address = secondInning.get(Address.class, addressId);
+		address = (Address) secondInning.get(Address.class, addressId);
 		assert address != null;
 		address.getEmployee();
 //		assert employee != null;
@@ -62,7 +62,7 @@ public class TestOneToOne {
 
 	@Test
 	public void testEagerFetchForAddressFromEmployeeEntity() {
-		Session firstInning = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session firstInning = HibernateUtil.getSessionFactory().openSession();
 
 		Employee employee = new Employee("Gagan", "gagan@gmail.com");
 		Address address = new Address(employee, "Rose park", "Jalandhar", "Punjab", "India", 144008);
@@ -73,10 +73,10 @@ public class TestOneToOne {
 		transaction.commit();
 		firstInning.close();
 
-		Session secondInning = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session secondInning = HibernateUtil.getSessionFactory().openSession();
 		employee = null;
 
-		employee = secondInning.get(Employee.class, employeeId);
+		employee = (Employee) secondInning.get(Employee.class, employeeId);
 		employee.getAddress();
 		assert employee != null;
 

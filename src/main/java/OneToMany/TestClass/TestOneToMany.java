@@ -35,7 +35,7 @@ public class TestOneToMany {
 
 	public void setup() {
 		// one unit of work per session
-		session = new HibernateUtil().initializeHibernateProperties().openSession();
+		session = HibernateUtil.getSessionFactory().openSession();
 	}
 
 	@Test(description = "One To Many relationship -> Insert java object(data) into database.")

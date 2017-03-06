@@ -26,7 +26,7 @@
         <property name="hbm2ddl.auto">update</property>
 
         <!-- List of Class mapping files -->
-        <mapping class="in.gagan.entities.Student"/>
+        <mapping class="in.gagan.entities.Student3"/>
     </session-factory>
 
 </hibernate-configuration>

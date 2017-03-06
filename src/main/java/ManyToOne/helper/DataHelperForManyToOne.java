@@ -5,38 +5,38 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ManyToOne.entities.Course;
-import ManyToOne.entities.Student;
+import ManyToOne.entities.Cours2;
+import ManyToOne.entities.Student2;
 
 public class DataHelperForManyToOne {
 
 
-	public static Set<Student> createSetOfStudents() {
+	public static Set<Student2> createSetOfStudents() {
 
-		Set<Student> studentSet = new HashSet<Student>();
-		Student student = new Student("Gagan");
-		Student student1 = new Student("prashant");
-		Student student2 = new Student("Amrit");
+		Set<Student2> student2Set = new HashSet<Student2>();
+		Student2 student = new Student2("Gagan");
+		Student2 student11 = new Student2("prashant");
+		Student2 student12 = new Student2("Amrit");
 
-		studentSet.add(student);
-		studentSet.add(student1);
-		studentSet.add(student2);
+		student2Set.add(student);
+		student2Set.add(student11);
+		student2Set.add(student12);
 
-		return studentSet;
+		return student2Set;
 	}
 
 
-	public static List<Course> createListOfCourses() {
-		List<Course> courseList = new ArrayList<Course>();
+	public static List<Cours2> createListOfCourses() {
+		List<Cours2> cours2List = new ArrayList<Cours2>();
 
-		Course course = new Course("Java");
-		Course course1 = new Course("Java");
-		Course course2 = new Course("Java");
+		Cours2 cours2 = new Cours2("Java");
+		Cours2 cours21 = new Cours2("Java");
+		Cours2 cours22 = new Cours2("Java");
 
-		courseList.add(course);
+		cours2List.add(cours2);
 
 
-		return courseList;
+		return cours2List;
 
 	}
 }

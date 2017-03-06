@@ -1,6 +1,8 @@
 package inheritence.TablePerClass.entities;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "VEHICLE_1")
-public class Vehicle {
+public class Vehicle implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

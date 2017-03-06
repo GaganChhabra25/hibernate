@@ -32,7 +32,7 @@ public class Student {
 	private Long Id;
 	private String studentName;
 
-	@ManyToMany()
+	@ManyToMany
 	@JoinTable(
 			name = "student_course",
 			joinColumns = {@JoinColumn(name = "student_id")},

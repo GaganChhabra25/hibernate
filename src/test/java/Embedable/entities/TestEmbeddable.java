@@ -12,7 +12,7 @@ public class TestEmbeddable {
 
 	@Test
 	public void testEmbeddableAnnotation() {
-		Session session = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 
 		UserDetails userDetails1 = new UserDetails();
@@ -85,7 +85,7 @@ public class TestEmbeddable {
 
 	@Test(description = "Internally it will create ONE-TO-Many relationship")
 	public void testEmbeddableToSaveCollectionIntoDatabase() {
-		Session session = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 
 		// Create User

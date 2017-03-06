@@ -4,9 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.testng.annotations.Test;
 
-import inheritence.SingleTable.entities.FourWheeler;
-import inheritence.SingleTable.entities.TwoWheeler;
-import inheritence.SingleTable.entities.Vehicle;
+import inheritence.SingleTable.entities.FourWheeler1;
+import inheritence.SingleTable.entities.TwoWheeler1;
+import inheritence.SingleTable.entities.Vehicle1;
 import util.HibernateUtil;
 
 public class TestInheritence {
@@ -14,14 +14,14 @@ public class TestInheritence {
 	@Test
 	public void testSingleTable() {
 
-		Session session = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 
-		Vehicle vehicle = new Vehicle("Truck");
-		TwoWheeler pulsar = new TwoWheeler("Pulsar", "Handle");
-		FourWheeler i20 = new FourWheeler("i20", "Steering");
+		Vehicle1 vehicle1 = new Vehicle1("Truck");
+		TwoWheeler1 pulsar = new TwoWheeler1("Pulsar", "Handle");
+		FourWheeler1 i20 = new FourWheeler1("i20", "Steering");
 
-		session.save(vehicle);
+		session.save(vehicle1);
 		session.save(pulsar);
 		session.save(i20);
 

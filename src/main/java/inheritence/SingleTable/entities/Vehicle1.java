@@ -17,14 +17,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @DiscriminatorColumn(name = "VEHICLE_TYPE", discriminatorType = DiscriminatorType.STRING)
-public class Vehicle {
+public class Vehicle1 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long vehicleId;
 	private String vehicleName;
 
-	public Vehicle(String vehicleName) {
+	public Vehicle1(String vehicleName) {
 		this.vehicleName = vehicleName;
 	}
 }

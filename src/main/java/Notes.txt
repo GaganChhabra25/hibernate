@@ -273,6 +273,7 @@ INHERITENCE
 2) TABLE PER CLASS (Less normalized, can put contrainsts)
 -----------------------------------------------------------
     NOTE :  Different ID's for every record.
+         :  Parent class stucture is merged into child class
 
    Step 1  ---->        mysql> select * from VEHICLE_;
                         +-----------+-------------+
@@ -369,3 +370,50 @@ STATES OF OBJECT
    2.  When object before the session area then it is in Transient State.
    3.  When object after the session area then it is in Detached State.
 
+=================================================
+ENABLE SECOND LEVEL CACHE
+==================================================
+Step :1
+			properties.setProperty("hibernate.cache.use_second_level_cache", "true");
+//          properties.setProperty("net.sf.ehcache.configureationResourceName", "ehcache.xml");
+//			properties.setProperty("hibernate.cache.use_query_cache", "true");
+			properties.setProperty("hibernate.cache.region.factory_class", "net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory");
+
+Step 2:
+--------
+
+             <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-core</artifactId>
+                        <version>4.3.10.Final</version>
+             </dependency>
+
+           <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+                <dependency>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                    <version>2.8.5</version>
+                </dependency>
+
+
+Step 3: ----> ehcache.xml
+----------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+    <diskStore path="./ehcache_data"/>
+
+    <defaultCache
+            maxElementsInMemory="100"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="200"/>
+
+    <cache
+            name="players"
+            maxElementsInMemory="10000"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+            overflowToDisk="true"/>
+</ehcache>

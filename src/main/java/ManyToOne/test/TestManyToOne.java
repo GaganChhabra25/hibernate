@@ -9,8 +9,8 @@ import org.hibernate.Transaction;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import ManyToOne.entities.Course;
-import ManyToOne.entities.Student;
+import ManyToOne.entities.Cours2;
+import ManyToOne.entities.Student2;
 import ManyToOne.helper.DataHelperForManyToOne;
 import util.HibernateUtil;
 
@@ -22,25 +22,25 @@ public class TestManyToOne {
 	@BeforeMethod
 	public void setup() {
 		// one unit of work per session
-		session = new HibernateUtil().initializeHibernateProperties().openSession();
+		session = HibernateUtil.getSessionFactory().openSession();
 	}
 
 	@Test
 	public void testManyToOne() {
 		Transaction transaction = session.beginTransaction();
 
-		Set<Student> studentSet = DataHelperForManyToOne.createSetOfStudents();
-		Course course = new Course("java");
+		Set<Student2> student2Set = DataHelperForManyToOne.createSetOfStudents();
+		Cours2 cours2 = new Cours2("java");
 		/*log.info("==========Course ==============");
 		log.info(course.getCourseName());
 		System.out.println(course.getId());*/
 
-		studentSet.forEach(student1 -> {
-			course.getStudent().add(student1);
-			student1.setCourse(course);
+		student2Set.forEach(student1 -> {
+			cours2.getStudent2().add(student1);
+			student1.setCours2(cours2);
 			session.saveOrUpdate(student1);
 		});
-		session.saveOrUpdate(course);
+		session.saveOrUpdate(cours2);
 		transaction.commit();
 		session.close();
 	}

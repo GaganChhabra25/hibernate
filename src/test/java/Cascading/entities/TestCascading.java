@@ -15,7 +15,7 @@ public class TestCascading {
 	@Test(description = "CascadeType.ALL")
 	public void testCascading() {
 
-		Session session = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 
 		Person person = new Person("Gagan");
@@ -45,10 +45,10 @@ public class TestCascading {
 		log.info("=======Data created successfuly========== ");
 
 		// Read and delete
-		Session session = new HibernateUtil().initializeHibernateProperties().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
 
-		Person person = session.get(Person.class, 1l);
+		Person person = (Person) session.get(Person.class, 1l);
 		log.info("======= Data retrieved ==============");
 		session.delete(person);
 		transaction.commit();
