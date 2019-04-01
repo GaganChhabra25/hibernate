@@ -355,7 +355,7 @@ NOTE: ID's first generated at parent table, then same ID's shared accross all ch
 
 
 =========================================
-STATES OF OBJECT
+STATES OF OBJECT : http://javawebtutor.com/articles/hibernate/hibernate-object-states.php
 ===========================================
 
 
